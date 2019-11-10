@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Behavior</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="createBehaviorForm" (submit)="createBehavior()">
+    <ion-item>
+      <ion-label stacked>Behavior Name</ion-label>
+      <ion-input
+        formControlName="behaviorName"
+        type="text"
+        placeholder="What's this behavior called?"
+      >
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Good/Bad?</ion-label>
+      <ion-select formControlName="goodOrBad" placeholder="Select One">
+        <ion-select-option value="0">Good</ion-select-option>
+        <ion-select-option value="1">Bad</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Points</ion-label>
+      <ion-input
+        formControlName="points"
+        type="number"
+        placeholder="How many behavior points?"
+      >
+      </ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="!createBehaviorForm.valid">
+      Add Behavior
+    </ion-button>
+  </form>
+</ion-content>
