@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Plugins } from '@capacitor/core';
+
+import * as firebase from 'firebase/app';
+import { environment } from '../environments/environment';
+
+const { SplashScreen, StatusBar } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -11,27 +15,32 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
   constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private platform: Platform
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      firebase.initializeApp(environment.firebase);
       // Use matchMedia to check the user preference
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
       // TODO: Probably want to prompt before changing, and also give user ability to toggle
       // this.toggleDarkTheme(prefersDark.matches);
+      // TODO: Use AlertController to prompt about dark mode setting
 
       // Listen for changes to the prefers-color-scheme media query
       prefersDark.addListener((mediaQuery) => this.toggleDarkTheme(mediaQuery.matches));
 
 
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      SplashScreen.hide().catch(error => {
+        console.error(error);
+      });
+
+      StatusBar.hide().catch(error => {
+        console.error(error);
+      });
     });
   }
 
