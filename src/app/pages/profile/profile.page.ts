@@ -29,7 +29,6 @@ export class ProfilePage implements OnInit {
       .getUserProfile()
       .then(userProfileSnapshot => {
         this.userProfile = userProfileSnapshot.data();
-        // this.birthDate = userProfileSnapshot.data().birthDate;
       });
 
     this.settingsService.getSetting('Dark Mode').then(settingSnapshot => {
@@ -71,14 +70,6 @@ export class ProfilePage implements OnInit {
       ],
     });
     await alert.present();
-  }
-
-  updateDOB(birthDate: string): void {
-    if (birthDate === undefined) {
-      return;
-    }
-    // TODO: Implement DOB
-    // this.profileService.updateDOB(birthDate);
   }
 
   async updateEmail(): Promise<void> {
