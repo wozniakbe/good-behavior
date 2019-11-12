@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/users/auth.service';
 import { ProfileService } from '../../services/users/profile.service';
 import { Router } from '@angular/router';
+import { SettingsService } from '../../services/users/settings.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,10 +13,13 @@ import { Router } from '@angular/router';
 export class ProfilePage implements OnInit {
   public userProfile: any;
   public birthDate: Date;
+  public darkModeEnabled: boolean;
+
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
     private profileService: ProfileService,
+    private settingsService: SettingsService,
     private router: Router
   ) { }
 
@@ -23,14 +27,18 @@ export class ProfilePage implements OnInit {
     const userProfile = this.profileService.getUserProfile();
     this.profileService
       .getUserProfile()
-      .then( userProfileSnapshot => {
+      .then(userProfileSnapshot => {
         this.userProfile = userProfileSnapshot.data();
         // this.birthDate = userProfileSnapshot.data().birthDate;
       });
+
+    this.settingsService.getSetting('Dark Mode').then(settingSnapshot => {
+      this.darkModeEnabled = settingSnapshot.data().enabled;
+    });
   }
 
   logOut(): void {
-    this.authService.logoutUser().then( () => {
+    this.authService.logoutUser().then(() => {
       this.router.navigateByUrl('login');
     });
   }
@@ -119,5 +127,16 @@ export class ProfilePage implements OnInit {
       ],
     });
     await alert.present();
+  }
+
+  async onDarkModeChanged() {
+    await this.settingsService.updateSetting('Dark Mode', this.darkModeEnabled).then(() => {
+      this.toggleDarkTheme(this.darkModeEnabled);
+    });
+  }
+
+  // Add or remove the "dark" class based on if the media query matches
+  toggleDarkTheme(shouldAdd) {
+    document.body.classList.toggle('dark', shouldAdd);
   }
 }

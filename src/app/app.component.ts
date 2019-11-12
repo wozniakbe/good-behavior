@@ -5,6 +5,7 @@ import { Plugins } from '@capacitor/core';
 
 import * as firebase from 'firebase/app';
 import { environment } from '../environments/environment';
+import { SettingsService } from './services/users/settings.service';
 
 const { SplashScreen, StatusBar } = Plugins;
 
@@ -14,8 +15,11 @@ const { SplashScreen, StatusBar } = Plugins;
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  private darkModeEnabled: boolean;
+
   constructor(
-    private platform: Platform
+    private platform: Platform,
+    private settingsService: SettingsService
   ) {
     this.initializeApp();
   }
@@ -26,8 +30,13 @@ export class AppComponent {
       // Use matchMedia to check the user preference
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
+      this.settingsService.getSetting('Dark Mode').then(settingSnapshot => {
+        this.darkModeEnabled = settingSnapshot.data().enabled;
+        this.toggleDarkTheme(this.darkModeEnabled);
+      });
+
       // TODO: Probably want to prompt before changing, and also give user ability to toggle
-      // this.toggleDarkTheme(prefersDark.matches);
+
       // TODO: Use AlertController to prompt about dark mode setting
 
       // Listen for changes to the prefers-color-scheme media query
@@ -46,6 +55,12 @@ export class AppComponent {
 
     // Add or remove the "dark" class based on if the media query matches
     toggleDarkTheme(shouldAdd) {
+      // if (document.body.classList.contains('dark') && !shouldAdd) {
+      //   document.body.classList.remove('dark');
+      // }
+      // if (!document.body.classList.contains('dark') && shouldAdd) {
+      //   document.body.classList.add('dark');
+      // }
       document.body.classList.toggle('dark', shouldAdd);
     }
 }
