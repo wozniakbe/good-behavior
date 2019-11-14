@@ -1,5 +1,7 @@
 {
   "name": "good-behavior",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
