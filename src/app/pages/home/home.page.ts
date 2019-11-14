@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { features } from '../../helpers/feature-toggle';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
+  public premadeBehaviorsPageEnabled: boolean;
+
   constructor() { }
 
   ngOnInit() {
+    this.premadeBehaviorsPageEnabled = features.premadeBehaviorsPageEnabled;
   }
 
 }

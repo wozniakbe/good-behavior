@@ -55,12 +55,6 @@ export class AppComponent {
 
     // Add or remove the "dark" class based on if the media query matches
     toggleDarkTheme(shouldAdd) {
-      // if (document.body.classList.contains('dark') && !shouldAdd) {
-      //   document.body.classList.remove('dark');
-      // }
-      // if (!document.body.classList.contains('dark') && shouldAdd) {
-      //   document.body.classList.add('dark');
-      // }
       document.body.classList.toggle('dark', shouldAdd);
     }
 }
