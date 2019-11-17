@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Rewards</ion-title>
+      <ion-buttons slot="end">
+        <ion-button routerLink="/create-reward">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-card
+      *ngFor="let reward of rewardsList">
+      <ion-card-header>
+        {{ reward.name }}
+      </ion-card-header>
+      <ion-item>
+        <ion-label slot="start">Points</ion-label>
+        <ion-label slot="end">{{ reward.points }}</ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-content>
+  

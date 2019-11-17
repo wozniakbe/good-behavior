@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from '../../services/users/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../home/home.module').then(m => m.HomePageModule)
+              import('../home/home.module').then(m => m.HomePageModule),
+              canActivate: [AuthGuard]
           }
         ]
       },
@@ -23,17 +25,19 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../behaviors/behaviors.module').then(m => m.BehaviorsPageModule)
+              import('../behaviors/behaviors.module').then(m => m.BehaviorsPageModule),
+              canActivate: [AuthGuard]
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'rewards',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../rewards/rewards.module').then(m => m.RewardsPageModule),
+              canActivate: [AuthGuard]
           }
         ]
       },
