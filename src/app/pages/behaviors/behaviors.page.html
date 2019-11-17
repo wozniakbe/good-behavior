@@ -15,9 +15,10 @@
     <ion-card-header>
       {{ behavior.name }}
     </ion-card-header>
-    <ion-card-content>
-      Good/Bad? {{ behavior.type }}
-    </ion-card-content>
+    <ion-item>
+      <ion-label slot="start">Points</ion-label>
+      <ion-label slot="end">{{ behavior.points }}</ion-label>
+    </ion-item>
   </ion-card>
   <ion-card>
     <ion-item>
