@@ -26,7 +26,9 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      firebase.initializeApp(environment.firebase);
+      if (!firebase.apps.length) {
+        firebase.initializeApp(environment.firebase);
+      }
       // Use matchMedia to check the user preference
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -53,8 +55,8 @@ export class AppComponent {
     });
   }
 
-    // Add or remove the "dark" class based on if the media query matches
-    toggleDarkTheme(shouldAdd) {
-      document.body.classList.toggle('dark', shouldAdd);
-    }
+  // Add or remove the "dark" class based on if the media query matches
+  toggleDarkTheme(shouldAdd) {
+    document.body.classList.toggle('dark', shouldAdd);
+  }
 }

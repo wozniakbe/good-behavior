@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { BehaviorsService } from '../../services/behaviors/behaviors.service';
 import { Behavior } from '../../models/behavior.interface';
-import { BehaviorType } from '../../models/behavior-type.enum';
 
 @Component({
   selector: 'app-create',
@@ -36,13 +35,11 @@ export class CreatePage implements OnInit {
     const loading = await this.loadingCtrl.create({});
 
     const behaviorName: string = this.createBehaviorForm.value.behaviorName;
-    const goodOrBad: BehaviorType = this.createBehaviorForm.value.goodOrBad;
     const points: number = this.createBehaviorForm.value.points;
 
     const behavior: Behavior = {
       id: '',
       name: behaviorName,
-      type: goodOrBad,
       points
     };
 
