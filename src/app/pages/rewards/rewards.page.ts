@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./rewards.page.scss'],
 })
 export class RewardsPage implements OnInit {
-public rewardsList: Array<any>;
+  public rewardsList;
 
   constructor(
     private rewardsService: RewardsService,
@@ -20,16 +20,8 @@ public rewardsList: Array<any>;
   ) { }
 
   ngOnInit() {
-    this.rewardsService.getRewardsList().then(rewardListSnapshot => {
-      this.rewardsList = [];
-      rewardListSnapshot.forEach(reward => {
-        this.rewardsList.push({
-          id: reward.id,
-          name: reward.data().name,
-          points: reward.data().points
-        });
-        return false;
-      });
+    this.rewardsService.getRewardsList().then(rewardsList => {
+      this.rewardsList = rewardsList.valueChanges();
     });
   }
 

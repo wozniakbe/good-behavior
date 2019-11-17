@@ -11,7 +11,7 @@
   
   <ion-content padding>
     <ion-card
-      *ngFor="let reward of rewardsList">
+      *ngFor="let reward of rewardsList | async">
       <ion-card-header>
         {{ reward.name }}
       </ion-card-header>

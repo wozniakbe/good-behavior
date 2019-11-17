@@ -12,7 +12,7 @@ import { AuthService } from '../users/auth.service';
 export class RewardsService {
 
   private rewardsPrefix = 'rewards';
-  private rewardsListRef: firebase.firestore.CollectionReference;;
+  private rewardsListRef: AngularFirestoreCollection;
   public userProfile: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
 
@@ -21,9 +21,9 @@ export class RewardsService {
     private authService: AuthService
   ) { }
 
-  async getRewardsList(): Promise<firebase.firestore.QuerySnapshot> {
+  async getRewardsList(): Promise<AngularFirestoreCollection> {
     await this.initializeRefs();
-    return this.rewardsListRef.get();
+    return this.rewardsListRef;
   }
 
   async createReward(reward): Promise<firebase.firestore.DocumentReference> {
@@ -33,7 +33,7 @@ export class RewardsService {
     return this.rewardsListRef.add(reward);
   }
 
-  async getReward(id: string): Promise<firebase.firestore.DocumentSnapshot> {
+  async getReward(id: string) {
     await this.initializeRefs();
     return this.rewardsListRef.doc(id).get();
   }
@@ -54,8 +54,7 @@ export class RewardsService {
       this.currentUser = await this.authService.getUser();
     }
     if (!this.rewardsListRef) {
-      this.rewardsListRef = firebase
-        .firestore()
+      this.rewardsListRef = this.firestore
         .collection(`users/${this.currentUser.uid}/${this.rewardsPrefix}`);
     }
   }

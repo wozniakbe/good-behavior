@@ -5,6 +5,7 @@ import { Behavior } from '../../models/behavior.interface';
 
 import * as firebase from 'firebase';
 import { AuthService } from '../users/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,7 @@ import { AuthService } from '../users/auth.service';
 export class BehaviorsService {
 
   private behaviorsPrefix = 'behaviors';
-  private behaviorsListRef: firebase.firestore.CollectionReference;;
-  public userProfile: firebase.firestore.DocumentReference;
+  private behaviorsListRef: AngularFirestoreCollection;
   public currentUser: firebase.User;
 
   constructor(
@@ -21,9 +21,9 @@ export class BehaviorsService {
     private authService: AuthService
   ) { }
 
-  async getBehaviorsList(): Promise<firebase.firestore.QuerySnapshot> {
+  async getBehaviorsList(): Promise<AngularFirestoreCollection> {
     await this.initializeRefs();
-    return this.behaviorsListRef.get();
+    return this.behaviorsListRef;
   }
 
   async createBehavior(behavior): Promise<firebase.firestore.DocumentReference> {
@@ -33,7 +33,7 @@ export class BehaviorsService {
     return this.behaviorsListRef.add(behavior);
   }
 
-  async getBehavior(id: string): Promise<firebase.firestore.DocumentSnapshot> {
+  async getBehavior(id: string): Promise<Observable<firebase.firestore.DocumentSnapshot>> {
     await this.initializeRefs();
     return this.behaviorsListRef.doc(id).get();
   }
@@ -54,8 +54,7 @@ export class BehaviorsService {
       this.currentUser = await this.authService.getUser();
     }
     if (!this.behaviorsListRef) {
-      this.behaviorsListRef = firebase
-        .firestore()
+      this.behaviorsListRef = this.firestore
         .collection(`users/${this.currentUser.uid}/${this.behaviorsPrefix}`);
     }
   }
