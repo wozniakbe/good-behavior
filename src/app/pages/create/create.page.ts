@@ -23,7 +23,6 @@ export class CreatePage implements OnInit {
   ) {
     this.createBehaviorForm = formBuilder.group({
       behaviorName: ['', Validators.required],
-      goodOrBad: ['', Validators.required],
       points: ['', Validators.required]
     });
   }
@@ -45,7 +44,7 @@ export class CreatePage implements OnInit {
 
     this.behaviorsService.createBehavior(behavior).then(() => {
       loading.dismiss().then(() => {
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl('/tabs/behaviors');
       });
     }, error => {
       console.error(error);

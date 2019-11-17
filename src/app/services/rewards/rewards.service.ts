@@ -26,27 +26,27 @@ export class RewardsService {
     return this.rewardsListRef.get();
   }
 
-  async createBehavior(reward): Promise<firebase.firestore.DocumentReference> {
+  async createReward(reward): Promise<firebase.firestore.DocumentReference> {
     await this.initializeRefs();
     const id = this.firestore.createId();
     reward.id = id;
     return this.rewardsListRef.add(reward);
   }
 
-  async getBehavior(id: string): Promise<firebase.firestore.DocumentSnapshot> {
+  async getReward(id: string): Promise<firebase.firestore.DocumentSnapshot> {
     await this.initializeRefs();
     return this.rewardsListRef.doc(id).get();
   }
 
-  async updateBehavior(id, reward) {
+  async updateReward(id, reward) {
     await this.initializeRefs();
-    const behaviorRef = this.rewardsListRef.doc(id);
-    return behaviorRef.update(reward);
+    const rewardRef = this.rewardsListRef.doc(id);
+    return rewardRef.update(reward);
   }
 
-  async deleteBehavior(id) {
+  async deleteReward(id) {
     await this.initializeRefs();
-    const behaviorRef = this.rewardsListRef.doc(id).delete();
+    const rewardRef = this.rewardsListRef.doc(id).delete();
   }
 
   async initializeRefs() {
