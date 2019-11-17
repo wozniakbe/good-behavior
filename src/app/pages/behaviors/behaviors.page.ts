@@ -23,17 +23,6 @@ public behaviorsList;
     this.behaviorsService.getBehaviorsList().then(behaviorsList => {
       this.behaviorsList = behaviorsList.valueChanges();
     });
-    // this.behaviorsService.getBehaviorsList().then(behaviorListSnapshot => {
-    //   this.behaviorsList = [];
-    //   behaviorListSnapshot.forEach(behavior => {
-    //     this.behaviorsList.push({
-    //       id: behavior.id,
-    //       name: behavior.data().name,
-    //       points: behavior.data().points
-    //     });
-    //     return false;
-    //   });
-    // });
   }
 
 }
