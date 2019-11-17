@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./behaviors.page.scss'],
 })
 export class BehaviorsPage implements OnInit {
-public behaviorsList;
+public behaviorsList: Array<any>;
 
   constructor(
     private behaviorsService: BehaviorsService,
@@ -20,7 +20,17 @@ public behaviorsList;
   ) { }
 
   ngOnInit() {
-    this.behaviorsList = this.behaviorsService.getAllBehaviors().valueChanges();
+    this.behaviorsService.getBehaviorsList().then(behaviorListSnapshot => {
+      this.behaviorsList = [];
+      behaviorListSnapshot.forEach(behavior => {
+        this.behaviorsList.push({
+          id: behavior.id,
+          name: behavior.data().name,
+          points: behavior.data().points
+        });
+        return false;
+      });
+    });
   }
 
 }
