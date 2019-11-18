@@ -1,21 +1,49 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Behavior Detail</ion-title>
+    <ion-buttons slot="end">
+        <ion-button *ngIf="!isEditMode" (click)="toggleEditMode()">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="isEditMode" (click)="toggleEditMode()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
       </ion-buttons>
-      <ion-title>Behavior Detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="!isEditMode">
     <h3>Name</h3>
     <p>
       {{(behavior | async)?.name}}
     </p>
-  
+
     <h3>Points</h3>
     <p>
       {{(behavior | async)?.points}}
     </p>
-    
-  </ion-content>
+  </div>
+
+  <form *ngIf="isEditMode" [formGroup]="editBehaviorForm" (submit)="editBehavior()">
+      <ion-item>
+        <ion-label stacked>Behavior Name</ion-label>
+        <ion-input formControlName="behaviorName" type="text" value="{{(behavior | async)?.name}}" placeholder="What's this behavior called?">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label stacked>Points</ion-label>
+        <ion-input formControlName="points" type="number" value="{{(behavior | async)?.points}}" placeholder="How many behavior points?">
+        </ion-input>
+      </ion-item>
+  
+      <ion-button expand="block" type="submit" [disabled]="!editBehaviorForm.valid">
+        Save
+      </ion-button>
+    </form>
+
+</ion-content>
