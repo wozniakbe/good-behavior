@@ -33,8 +33,8 @@ export class BehaviorsService {
     return this.behaviorsListRef.add(behavior);
   }
 
-  getBehavior(id: string): AngularFirestoreDocument {
-    this.initializeRefs();
+  async getBehavior(id: string): Promise<AngularFirestoreDocument> {
+    await this.initializeRefs();
     return this.behaviorsListRef.doc(id);
   }
 

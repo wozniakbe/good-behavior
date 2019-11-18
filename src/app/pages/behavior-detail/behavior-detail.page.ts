@@ -11,13 +11,16 @@ import { Observable } from 'rxjs';
 })
 export class BehaviorDetailPage implements OnInit {
   public behavior: Observable<any>;
+  private behaviorId;
   constructor(
     private behaviorsService: BehaviorsService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    const behaviorId: string = this.route.snapshot.paramMap.get('id');
-    this.behavior = this.behaviorsService.getBehavior(behaviorId).valueChanges();
+    this.behaviorId = this.route.snapshot.paramMap.get('id');
+    this.behaviorsService.getBehavior(this.behaviorId).then(behavior => {
+      this.behavior = behavior.valueChanges();
+    });
   }
 }
