@@ -33,9 +33,9 @@ export class BehaviorsService {
     return this.behaviorsListRef.add(behavior);
   }
 
-  async getBehavior(id: string): Promise<Observable<firebase.firestore.DocumentSnapshot>> {
-    await this.initializeRefs();
-    return this.behaviorsListRef.doc(id).get();
+  getBehavior(id: string): AngularFirestoreDocument {
+    this.initializeRefs();
+    return this.behaviorsListRef.doc(id);
   }
 
   async updateBehavior(id, behavior) {

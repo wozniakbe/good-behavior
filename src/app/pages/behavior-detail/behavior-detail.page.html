@@ -1,9 +1,21 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>behavior-detail</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Behavior Detail</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <h3>Name</h3>
+    <p>
+      {{(behavior | async)?.name}}
+    </p>
+  
+    <h3>Points</h3>
+    <p>
+      {{(behavior | async)?.points}}
+    </p>
+    
+  </ion-content>
