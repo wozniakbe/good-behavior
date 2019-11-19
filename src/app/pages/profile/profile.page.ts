@@ -64,6 +64,8 @@ export class ProfilePage implements OnInit {
         {
           text: 'Save',
           handler: data => {
+            this.userProfile.firstName = data.firstName;
+            this.userProfile.lastName = data.lastName;
             this.profileService.updateName(data.firstName, data.lastName);
           },
         },

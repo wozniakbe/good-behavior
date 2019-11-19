@@ -11,7 +11,8 @@
   
   <ion-content padding>
     <ion-card
-      *ngFor="let reward of rewardsList">
+      *ngFor="let reward of rewardsList | async"
+      routerLink="/reward-detail/{{reward.id}}">
       <ion-card-header>
         {{ reward.name }}
       </ion-card-header>

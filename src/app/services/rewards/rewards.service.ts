@@ -5,6 +5,7 @@ import { Reward } from '../../models/reward.interface';
 
 import * as firebase from 'firebase';
 import { AuthService } from '../users/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,7 @@ import { AuthService } from '../users/auth.service';
 export class RewardsService {
 
   private rewardsPrefix = 'rewards';
-  private rewardsListRef: firebase.firestore.CollectionReference;;
-  public userProfile: firebase.firestore.DocumentReference;
+  private rewardsListRef: AngularFirestoreCollection;
   public currentUser: firebase.User;
 
   constructor(
@@ -21,9 +21,9 @@ export class RewardsService {
     private authService: AuthService
   ) { }
 
-  async getRewardsList(): Promise<firebase.firestore.QuerySnapshot> {
+  async getRewardsList(): Promise<AngularFirestoreCollection> {
     await this.initializeRefs();
-    return this.rewardsListRef.get();
+    return this.rewardsListRef;
   }
 
   async createReward(reward): Promise<firebase.firestore.DocumentReference> {
@@ -33,9 +33,9 @@ export class RewardsService {
     return this.rewardsListRef.add(reward);
   }
 
-  async getReward(id: string): Promise<firebase.firestore.DocumentSnapshot> {
+  async getReward(id: string): Promise<AngularFirestoreDocument> {
     await this.initializeRefs();
-    return this.rewardsListRef.doc(id).get();
+    return this.rewardsListRef.doc(id);
   }
 
   async updateReward(id, reward) {
@@ -54,8 +54,7 @@ export class RewardsService {
       this.currentUser = await this.authService.getUser();
     }
     if (!this.rewardsListRef) {
-      this.rewardsListRef = firebase
-        .firestore()
+      this.rewardsListRef = this.firestore
         .collection(`users/${this.currentUser.uid}/${this.rewardsPrefix}`);
     }
   }

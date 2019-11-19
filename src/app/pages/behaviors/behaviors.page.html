@@ -11,7 +11,8 @@
 
 <ion-content padding>
   <ion-card
-    *ngFor="let behavior of behaviorsList">
+    *ngFor="let behavior of behaviorsList | async"
+    routerLink="/behavior-detail/{{behavior.id}}">
     <ion-card-header>
       {{ behavior.name }}
     </ion-card-header>

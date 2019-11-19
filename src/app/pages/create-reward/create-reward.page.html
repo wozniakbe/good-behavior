@@ -1,34 +1,28 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Add Reward</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <form [formGroup]="createRewardForm" (submit)="createReward()">
-      <ion-item>
-        <ion-label stacked>Reward Name</ion-label>
-        <ion-input
-          formControlName="rewardName"
-          type="text"
-          placeholder="What's this reward called?"
-        >
-        </ion-input>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label stacked>Points</ion-label>
-        <ion-input
-          formControlName="points"
-          type="number"
-          placeholder="How many reward points?"
-        >
-        </ion-input>
-      </ion-item>
-  
-      <ion-button expand="block" type="submit" [disabled]="!createRewardForm.valid">
-        Add Reward
-      </ion-button>
-    </form>
-  </ion-content>
-  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/rewards"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Reward</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="createRewardForm" (submit)="createReward()">
+    <ion-item>
+      <ion-label stacked>Reward Name</ion-label>
+      <ion-input formControlName="rewardName" type="text" placeholder="What's this reward called?">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Points</ion-label>
+      <ion-input formControlName="points" type="number" placeholder="How many reward points?">
+      </ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="!createRewardForm.valid">
+      Add Reward
+    </ion-button>
+  </form>
+</ion-content>

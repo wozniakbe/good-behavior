@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/behaviors"></ion-back-button>
+    </ion-buttons>
     <ion-title>Add Behavior</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,21 +11,13 @@
   <form [formGroup]="createBehaviorForm" (submit)="createBehavior()">
     <ion-item>
       <ion-label stacked>Behavior Name</ion-label>
-      <ion-input
-        formControlName="behaviorName"
-        type="text"
-        placeholder="What's this behavior called?"
-      >
+      <ion-input formControlName="behaviorName" type="text" placeholder="What's this behavior called?">
       </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Points</ion-label>
-      <ion-input
-        formControlName="points"
-        type="number"
-        placeholder="How many behavior points?"
-      >
+      <ion-input formControlName="points" type="number" placeholder="How many behavior points?">
       </ion-input>
     </ion-item>
 
