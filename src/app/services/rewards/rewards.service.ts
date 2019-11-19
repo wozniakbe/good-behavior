@@ -5,6 +5,7 @@ import { Reward } from '../../models/reward.interface';
 
 import * as firebase from 'firebase';
 import { AuthService } from '../users/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,6 @@ export class RewardsService {
 
   private rewardsPrefix = 'rewards';
   private rewardsListRef: AngularFirestoreCollection;
-  public userProfile: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
 
   constructor(
@@ -33,9 +33,9 @@ export class RewardsService {
     return this.rewardsListRef.add(reward);
   }
 
-  async getReward(id: string) {
+  async getReward(id: string): Promise<AngularFirestoreDocument> {
     await this.initializeRefs();
-    return this.rewardsListRef.doc(id).get();
+    return this.rewardsListRef.doc(id);
   }
 
   async updateReward(id, reward) {

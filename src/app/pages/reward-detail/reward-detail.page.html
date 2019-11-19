@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reward Detail</ion-title>
+    <ion-buttons slot="end">
+        <ion-button *ngIf="!isEditMode" (click)="toggleEditMode()">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="isEditMode" (click)="toggleEditMode()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="!isEditMode">
+    <h3>Name</h3>
+    <p>
+      {{(reward | async)?.name}}
+    </p>
+
+    <h3>Points</h3>
+    <p>
+      {{(reward | async)?.points}}
+    </p>
+  </div>
+
+  <form *ngIf="isEditMode" [formGroup]="editRewardForm" (submit)="editReward()">
+      <ion-item>
+        <ion-label stacked>Reward Name</ion-label>
+        <ion-input formControlName="rewardName" type="text" value="{{(reward | async)?.name}}" placeholder="What's this reward called?">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label stacked>Points</ion-label>
+        <ion-input formControlName="points" type="number" value="{{(reward | async)?.points}}" placeholder="How many reward points?">
+        </ion-input>
+      </ion-item>
+  
+      <ion-button expand="block" type="submit" [disabled]="!editRewardForm.valid">
+        Save
+      </ion-button>
+    </form>
+
+</ion-content>
