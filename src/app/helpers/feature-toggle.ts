@@ -1,3 +1,4 @@
 export const features = {
-    premadeBehaviorsPageEnabled: false
+    premadeBehaviorsPageEnabled: false,
+    doBehaviorsPageEnabled: false
 };

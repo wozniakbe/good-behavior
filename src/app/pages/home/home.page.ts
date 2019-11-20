@@ -10,11 +10,13 @@ import { features } from '../../helpers/feature-toggle';
 export class HomePage implements OnInit {
 
   public premadeBehaviorsPageEnabled: boolean;
+  public doBehaviorsPageEnabled: boolean;
 
   constructor() { }
 
   ngOnInit() {
     this.premadeBehaviorsPageEnabled = features.premadeBehaviorsPageEnabled;
+    this.doBehaviorsPageEnabled = features.doBehaviorsPageEnabled;
   }
 
 }
